@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Stages - Mediation Service</title>
+    <link rel="stylesheet" href="/css/c.css">
+    <style>
+       @media (max-width: 768px) {
+            body {
+                padding-top: 50px;
+            }
+            
+            .main-nav {
+                padding: 0.5rem 30px;
+            }
+            
+          
+            
+            .session-grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .x1 h1 {
+                margin-left: 20px;
+                writing-mode: horizontal-tb;
+                transform: none;
+                font-size: 32px;
+                text-align: left;
+                margin-bottom: 20px;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .x2 {
+                display: grid;
+                max-width: 330px;
+                grid-template-columns: 1fr;
+            }
+            
+            .session-content .stage-block {
+                width: 100%;
+                height: auto;
+                min-height: 60px;
+                padding: 15px;
+                border-radius: 20px;
+            }
+            
+            .session-content .stage-block h2 {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .x3 img {
+                display: none !important;
+            }
+            
+            .stages-grid {
+                width: 100%;
+                height: auto;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                grid-template-areas: 
+                    "h1y1"
+                    "h2"
+                    "y2"
+                    "z1"
+                    "z2"
+                    "k12";
+                gap: 20px;
+            }
+            
+            .stage {
+                width: 100%;
+                min-width: 0;
+                min-height: auto;
+                padding: 20px;
+                border-radius: 20px;
+            }
+            
+            .h1y1 {
+                min-height: auto;
+                flex-direction: column;
+            }
+            
+            .stage-img-float {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+                float: none;
+                margin: 15px 0;
+                border-radius: 20px;
+            }
+            
+            .k12 {
+                flex-direction: column;
+                gap: 20px;
+                min-width: 0;
+            }
+            
+            .info-block {
+                width: 100%;
+                margin: 0;
+                border-radius: 20px;
+            }
+            
+            .form {
+                padding: 0 30px;
+                margin: 40px 0;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                grid-template-areas:
+                    "form-text"
+                    "form-side"
+                    "video1"
+                    "video2";
+                width: 100%;
+                gap: 20px;
+            }
+            
+            .form-side,
+            .form-text,
+            .form-video {
+                width: 100%;
+                min-width: 0;
+                border-radius: 20px;
+            }
+            
+            .form-video {
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+            .main-nav .logo {
+                 font-weight: bold;
+                 font-size: 1.1rem;
+                 background-color: transparent;
+                 color: #fff;
+                 text-decoration: none;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .main-nav {
+                padding: 0.5rem 30px;
+            }
+            
+            .session-grid-container,
+            .stages_content {
+                padding: 0 30px;
+            }
+            
+            .session-grid-container {
+                grid-template-columns: 80px 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .x1 h1 {
+                font-size: 36px;
+            }
+            
+            .stages-grid {
+                width: 100%;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto auto;
+                grid-template-areas:
+                    "h1y1 h2"
+                    "h1y1 y2"
+                    "z1 z2"
+                    "k12 k12";
+                gap: 20px;
+            }
+            
+            .stage {
+                padding: 20px;
+                border-radius: 30px;
+            }
+            
+            .h1y1 {
+                min-height: auto;
+            }
+            
+            .k12 {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            .info-block {
+                width: calc(50% - 10px);
+                margin-bottom: 20px;
+            }
+            
+            .form {
+                padding: 0 30px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                grid-template-areas:
+                    "form-text form-side"
+                    "video1 video2";
+                width: 100%;
+                gap: 20px;
+            }
+            
+            .form-side {
+                min-height: auto;
+            }
+            
+            footer {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            
+            phoneInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            phoneInput.addEventListener('paste', function(e) { 
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text');
+                this.value = text.replace(/[^0-9]/g, '');
+            });
+        });
+        </script>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">Mediation service</div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ru">RU</button>
+            </div>
+            <button class="burger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html"  data-translate="about_mediation">about mediation</a></li>
+                <li><a href="sessions.html" data-translate="sessions" class ="now">sessions</a></li>
+                <li><a href="in_belarus.html" data-translate="mediation_in_belarus">mediation in Belarus</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero-session">
+            <div class="hero-bg">
+                <img src="/mediation/photos/header.jpeg" alt="Session illustration">
+            </div>
+        </section>
+        <section class="session-content">
+            <div class="session-grid-container">
+                <div class="x1">
+                    <h1 data-translate="session[0]">Session Stages</h1>
+                </div>
+                <div class="x2">
+                    <div class="stage-block" data-translate="session[1]"><h2>The mediator's opening remarks</h2></div>
+                    <div class="stage-block" data-translate="session[2]"><h2>Presentation of the parties</h2></div>
+                    <div class="stage-block" data-translate="session[3]"><h2>Discussion</h2></div>
+                    <div class="stage-block" data-translate="session[4]"><h2>The Caucus</h2></div>
+                    <div class="stage-block" data-translate="session[5]"><h2>Formation of the agenda</h2></div>
+                    <div class="stage-block" data-translate="session[6]"><h2>Development of proposals</h2></div>
+                    <div class="stage-block" data-translate="session[7]"><h2>Preparation of the agreement</h2></div>
+                    <div class="stage-block" data-translate="session[8]"><h2>Exit from mediation</h2></div>
+                </div>
+                <div class="x3">
+                    <img src="/mediation/photos/stages.webp" alt="Session stages image">
+                </div>
+            </div>
+        </section>
+        <section class="stages_content">
+            <div class="stages-grid">
+                <div class="stage h1y1">
+                    <div class="stage-text">
+                        <h2 data-translate="stages[0]">The 1st stage</h2>
+                        <img src="/mediation/photos/stages_good.jpg" alt="Stage 1" class="stage-img-float">
+                        <p data-translate="stages[1]">of mediation is the mediator's introductory speech. In the introductory speech, the mediator tells the parties what the mediation process is, on what principles it is built, explains his functions in this process and his role in the upcoming negotiations, gets to know the parties and introduces himself, tells the parties what role they play in the upcoming negotiations, asks the parties whether they have enough time to negotiate, whether all parties interested in resolving the conflict situation are present at the negotiations, or whether it is worth inviting someone else, tells the parties about the stages of mediation, while stipulating the possibility of holding caucuses, i.e. individual conversations between the mediator and each party.
+                            Thus, in the introductory word at this stage of mediation, the mediator provides the parties with a large amount of information. The mediator must be able to "hold" the attention of the parties, constantly making sure that the parties listen carefully to him and understand what he is saying. The introductory speech takes an average of 10-15 minutes and it is not necessary to artificially shorten it due to some moments. In your opinion, the most insignificant nuance of the mediation stage, which you did not mention in the mediation process, can turn into a serious problem.
+                            </p>
+                    </div>
+                    
+                </div>
+                <div class="stage h2">
+                    <h2 data-translate="stages[2]">The 2nd stage</h2>
+                    <p data-translate="stages[3]">of mediation is the presentation of the parties. At this stage of mediation, the mediator provides each party with the opportunity to talk about what is on their side.In my opinion, there is a controversial situation. As a rule, the party who requested mediation is invited to begin a story about their vision of the situation. During the parties' story, the mediator is an active listener, makes the necessary notes for himself in a notebook so as not to miss important details in the future, and, if necessary, asks clarifying questions. It is important that during the story the other party does not interrupt the presenter.
+                    </p>
+                </div>
+                <div class="stage y2">
+                    <h2 data-translate="stages[4]">The 3rd stage</h2>
+                    <p data-translate="stages[5]">  of mediation is a discussion. At the end of the presentation of the parties, the mediator invites the parties to exchange opinions on what they have heard and to make their comments. It is quite possible that the parties will begin to have a very emotional dialogue. In this case, the mediator should let them speak out, "reset" the accumulated emotions, i.e. apply the technique of "venting emotions", but do not let the situation get out of control. During the discussion, work is underway on the initial formation of the agenda, and there are points on which the parties will have to come to an agreement.
+                    </p>
+                </div>
+                <div class="stage z1">
+                    <h2 data-translate="stages[6]">The 4th stage</h2>
+                    <p data-translate="stages[7]"> of mediation is a caucus, i.e. a mediator's conversation with each party individually. In accordance with the principle of equality of the parties, the number of caucuses held with each party should be the same, as well as the time spent on the caucus. This is necessary so that the mediator is not subsequently accused of sympathizing with only one of the parties.</p>
+                </div>
+                <div class="stage z2">
+                    <h2 data-translate="stages[8]">The 5th stage</h2>
+                    <p data-translate="stages[9]">of mediation is the formation of the agenda. At this stage, the mediator invites the parties to formulate and write down the issues on which they want to come to an agreement during the mediation process. The issues on the agenda should be formulated by the parties in such a way that they are understood unambiguously. </p>
+                </div>
+                <div class="stage k12">
+                    <div class="info-block">
+                        <h2 data-translate="stages[10]">The 6th stage</h2>
+                        <p data-translate="stages[11]"> of mediation is the development of proposals. The parties exchange proposals for resolving each issue on the agenda. This stage is one of the most important in the mediation process. The mediator helps the parties, if necessary, to hear each other, to see the positive that is in the proposal of each of them, to see the additional resources that they possess, to come to a new solution that satisfies both, etc. Sometimes it is better for the parties not to interfere, but it is necessary to keep abreast of the negotiations.</p>
+                    </div>
+                    <div class="info-block">
+                        <h2 data-translate="stages[12]">The 7th stage</h2>
+                        <p data-translate="stages[13]">of mediation is the preparation of an agreement. At the previous stage, the parties jointly developed proposals to resolve the controversial issues on the agenda. Now it is necessary to check each of them, to test for reality. In the event that any of the proposals failed the reality test, it is necessary to return to the discussion and develop a new proposal, which, in turn, would be feasible and acceptable to each of the parties. A written agreement must be interpreted unambiguously by each party.</p>
+                    </div>
+                    <div class="info-block">
+                        <h2 data-translate="stages[14]">The 8th stage</h2>
+                        <p data-translate="stages[15]"> is the exit from mediation. The goal of this stage is for the mediator to receive feedback on the results of the work. The parties assess, firstly, how satisfied they are with the agreement reached; secondly, how satisfied they are with the negotiation procedure itself with the participation of a mediator; and finally, they assess their emotional state: it became easier for them after the mediation session, the psychological tension decreased or, conversely, increased, etc. </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="form">
+            <div class="form-grid">
+                <div class="form-text">
+                    <p data-translate="form[0]">Fill out the form and we will select a qualified and trusted specialist for you, ensure confidentiality and neutrality so that you can freely express your thoughts. He will guide you to find compromises through mutually beneficial solutions. It will allow the parties to exchange views without accusations and aggression. It will reveal the true needs of the participants, hidden behind visible differences. It will help both sides of the conflict consolidate the results of the negotiations and support them in fulfilling the agreements. It will not only resolve the conflict, but also build long-term cooperation.</p>
+                </div>
+                <div class="form-side">
+                    <h2 class="form-title" data-translate="form[1]">Do you want to make an appointment for a session?</h2>
+                    <form id="mediationForm" action="/form_data.xml" method="post">
+                        <input type="text" id="fullName" name="full_name" placeholder="Full name" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone number" pattern="[0-9]*" inputmode="numeric" required>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="telegram" value="true"> Telegram</label>
+                            <label><input type="checkbox" name="facebook" value="true"> Facebook</label>
+                            <label><input type="checkbox" name="whatsapp" value="true"> WhatsApp</label>
+                        </div>
+                        <textarea id="problem" name="problem_description" placeholder="Describe the problem" required></textarea>
+                        <button type="submit" class="send-btn" id="send" data-translate="send">Send</button>
+                    </form>
+                </div>
+                <div class="form-video video1">
+                    <video width="100%" height="100%" controls poster="/mediation/video/video1.jpg">
+                        <source src="/mediation/video/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="form-video video2">
+                    <video width="100%" height="100%" controls poster="/mediation/video/video2.jpg">
+                        <source src="/mediation/video/video2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h2 data-translate="footer_text">Mediation service</h2>
+                <p data-translate="contacts">Contacts</p>
+                <p data-translate="phone">phone: +375 25 xxx xx xx</p>
+                <p>GIT: <a href="https://github.com/SanFrolova">SanFrolova</a></p>
+            </div>
+            <div>
+                <ul class="nav-footer">
+                    <li><a href="index.html" data-translate="about_mediation">about mediation</a></li>
+                    <li><a href="sessions.html" data-translate="sessions">sessions</a></li>
+                    <li><a href="in_belarus.html" data-translate="mediation_in_belarus">mediation in Belarus</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/main.js"></script>
+    <script src="/js/clean.js"></script>
+    <script src="/js/trans.js"></script>
+</body>
+</html>
