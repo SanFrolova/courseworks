@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="form_data.xsl"?>
+<mediation_requests>
+    <request>
+        <full_name></full_name>
+        <phone></phone>
+        <contact_methods>
+            <telegram></telegram>
+            <facebook></facebook>
+            <whatsapp></whatsapp>
+        </contact_methods>
+        <problem_description></problem_description>
+    </request>
+</mediation_requests> 
